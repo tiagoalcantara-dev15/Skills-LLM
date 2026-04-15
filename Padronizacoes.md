@@ -1,0 +1,273 @@
+---
+name: fluxo-i18n-localizacao
+description: Enforce Fluxo translation and locale standards when editing code in the Fluxo repo. Use when changing Blade, PHP, JavaScript, or React files that add or modify user-visible text, placeholders, labels, grid captions, validation messages, notifications, dates, numbers, percentages, currencies, or localized parsing. Apply the required project patterns for __(), LangFluxo.get(), AllStrategy_Date::getLocalizationStringFormatDateDefault(), getLocalizationStringFormatDateDefault(), formatLocalizedValue(), unformatLocalizedValue(), and convertDataFormat(), and prevent hardcoded locale or untranslated UI strings.
+---
+
+# Fluxo I18n Localizacao
+
+Apply the Fluxo repo standards for translation, date formatting, numeric formatting, currency formatting, and localized parsing. Use this skill during implementation and review whenever a change can affect what the user reads, types, or sees formatted on screen.
+
+If the repository contains `wikiMigration_PT_BR/padroesI18nELocalizacao.md`, read it when a case is unusual or when you need the full project guide.
+
+## Checklist
+
+Inspect the change for:
+
+- user-visible text
+- placeholders, labels, buttons, tabs, titles, captions
+- validation messages and notifications
+- dates shown in UI or sent to backend
+- numbers, percentages, currencies, summaries
+- parsing of localized input
+
+If none of those are touched, this skill may not be needed.
+
+## Translation Pattern
+
+### Blade
+
+Use:
+
+```blade
+{{ __('Texto aqui') }}
+```
+
+For attributes:
+
+```blade
+placeholder="{{ __('Texto aqui') }}"
+title="{{ __('Texto aqui') }}"
+```
+
+### Blade with PHP short tags
+
+Use:
+
+```php
+<?= __('Texto aqui') ?>
+```
+
+### PHP backend
+
+Use:
+
+```php
+__('Texto aqui')
+```
+
+Use this for:
+
+- modal titles
+- grid captions
+- validation messages
+- labels returned as UI data
+
+### JavaScript / React
+
+Use:
+
+```js
+LangFluxo.get('Texto aqui')
+```
+
+In React:
+
+```jsx
+window.LangFluxo.get('Texto aqui')
+```
+
+Use this for:
+
+- placeholders
+- notifications
+- validation text
+- dynamic button text
+- JS-rendered templates
+
+## Translation Sources
+
+When using free-text keys like `__('Nome')`:
+
+- add the exact same phrase to `fluxo/resources/lang/pt_BR.json`
+- add translations to the other locale `*.json` files
+
+When using `LangFluxo.get(...)`:
+
+- add the exact phrase to the JSON or PHP language source
+- add the phrase to `fluxo/resources/lang/js/lang.php`
+
+Pattern in `lang.php`:
+
+```php
+$strings[] = 'Campo obrigatório';
+```
+
+When the code already uses structured keys such as `__('sim_nao.S')` or `__('entrada_saida.E')`:
+
+- preserve that pattern
+- update the corresponding `fluxo/resources/lang/<locale>/<arquivo>.php`
+
+Do not convert an established structured-key domain into free-text JSON just for consistency.
+
+## Date Pattern
+
+### PHP / Blade
+
+Use:
+
+```php
+AllStrategy_Date::getLocalizationStringFormatDateDefault('date')
+```
+
+Common variants:
+
+- `'date'`
+- `'datetime'`
+- `'time'`
+
+Example:
+
+```php
+'format' => AllStrategy_Date::getLocalizationStringFormatDateDefault('date')
+```
+
+### JavaScript
+
+Use:
+
+```js
+getLocalizationStringFormatDateDefault('date')
+```
+
+Example:
+
+```js
+displayFormat: getLocalizationStringFormatDateDefault('date')
+```
+
+### Date conversion
+
+When reading component values or preparing payloads, use:
+
+```js
+convertDataFormat(value)
+```
+
+Use this between:
+
+- `DateBox` / `DateRangeBox`
+- JS state
+- AJAX payloads
+- backend-expected date strings
+
+## Number, Percent, and Currency Pattern
+
+### Display decimal values in PHP
+
+Use:
+
+```php
+formatLocalizedValue($value, 2)
+```
+
+### Display decimal values in JS
+
+Use:
+
+```js
+formatLocalizedValue(value, 2)
+```
+
+### Display currency in PHP
+
+Use:
+
+```php
+formatLocalizedValue($value, 2, true, NumberFormatter::CURRENCY)
+```
+
+To force a currency:
+
+```php
+formatLocalizedValue($value, 2, true, NumberFormatter::CURRENCY, 'USD')
+```
+
+### Display currency in JS
+
+Use:
+
+```js
+formatLocalizedValue(value, 2, true, LocalizationService.CURRENCY)
+```
+
+To force a currency:
+
+```js
+formatLocalizedValue(value, 2, true, LocalizationService.CURRENCY, 'USD')
+```
+
+### Display percent in JS
+
+Use:
+
+```js
+formatLocalizedValue(value, 2, true, LocalizationService.PERCENT)
+```
+
+### Parse localized numeric input in PHP
+
+Use:
+
+```php
+unformatLocalizedValue($value)
+```
+
+### Parse localized numeric input in JS
+
+Use:
+
+```js
+unformatLocalizedValue(value)
+```
+
+### AutoNumeric config in JS
+
+Use:
+
+```js
+getLocalizedAutoNumericConfig({...})
+```
+
+### Highcharts locale config in JS
+
+Use:
+
+```js
+Highcharts.setOptions(getLocalizedHighchartsSetOptions({...}))
+```
+
+## Reject These Anti-Patterns
+
+Do not introduce:
+
+- untranslated UI text in Blade, PHP, JS, or React
+- `toLocaleString('pt-BR')`
+- `number_format(...)` for UI-facing values
+- fixed date masks when a localization helper already exists
+- direct string comparisons against translated labels such as `"Sim"`, `"Não"`, or `"Selecione ..."`
+- logic that depends on localized display text instead of stable codes or IDs
+
+If you find an existing anti-pattern nearby, align new code with the standard and call out broader cleanup separately if needed.
+
+## Final Check
+
+Confirm all of the following:
+
+- every user-visible string goes through `__()` or `LangFluxo.get()`
+- every JS-visible phrase added to UI text is present in `resources/lang/js/lang.php`
+- every new translated phrase exists in the proper language source
+- dates use the localization helper instead of a fixed mask
+- numeric and currency output uses `formatLocalizedValue(...)`
+- localized numeric parsing uses `unformatLocalizedValue(...)`
+- no new hardcoded locale was introduced
+- no new logic depends on translated display text
