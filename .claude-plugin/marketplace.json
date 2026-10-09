@@ -1,0 +1,11 @@
+{
+  "name": "skills-llm",
+  "owner": { "name": "Tiago Alcantara" },
+  "plugins": [
+    {
+      "name": "skills-llm",
+      "source": "./",
+      "description": "Skills que padronizam o codigo gerado por IAs no fluxo (i18n, localizacao, etc.)"
+    }
+  ]
+}
