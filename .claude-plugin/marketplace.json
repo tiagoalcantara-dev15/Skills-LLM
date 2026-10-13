@@ -5,7 +5,7 @@
     {
       "name": "skills-llm",
       "source": "./",
-      "description": "Skills que padronizam o codigo gerado por IAs no fluxo (i18n, localizacao, etc.)"
+      "description": "Skills fluxo-* que padronizam o codigo gerado por IAs no Fluxo: planejamento, wiki, arquitetura, reuso e padroes de codigo"
     }
   ]
 }

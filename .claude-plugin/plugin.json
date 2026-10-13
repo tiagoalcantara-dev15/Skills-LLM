@@ -1,7 +1,7 @@
 {
   "name": "skills-llm",
-  "description": "Skills que padronizam o codigo gerado por IAs no fluxo (i18n, localizacao, etc.)",
-  "version": "0.1.0",
+  "description": "Skills fluxo-* que padronizam o codigo gerado por IAs no Fluxo: planejamento, wiki, arquitetura, reuso e padroes de codigo",
+  "version": "0.2.0",
   "author": { "name": "Tiago Alcantara" },
   "repository": "https://github.com/tiagoalcantara-dev15/Skills-LLM"
 }

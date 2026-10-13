@@ -1,6 +1,6 @@
 ---
 name: fluxo-padroes-de-codigo
-description: Padroes de escrita de codigo do repo Fluxo. Use ao escrever ou revisar codigo PHP, JavaScript, React, Blade ou CSS; cobre traducao e localizacao (__(), LangFluxo.get(), datas, numeros, moeda), escrita de functions e ifs, classes CSS, comentarios e nomenclatura. Carregue so a referencia do tema envolvido.
+description: Padroes de escrita de codigo do repo Fluxo (PHP, JS, React, Blade, CSS). Use ao escrever ou revisar codigo: traducao e localizacao, functions, ifs, classes CSS, comentarios e nomenclatura. Carregue so a referencia do tema.
 ---
 
 # Fluxo - Padroes de codigo

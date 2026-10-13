@@ -1,6 +1,6 @@
 ---
 name: fluxo-arquitetura
-description: Define onde e como criar arquivos no repo Fluxo (Laravel + Blade + JS/Vite). Use ANTES de criar, mover ou renomear qualquer arquivo ou pasta (controller, module AJAX, service, repository, model, view Blade, JS de tela, CSS, componente, migration, teste, arquivo de idioma) e ao criar uma tela ou endpoint de API novo.
+description: Define onde e como criar arquivos no repo Fluxo (Laravel + Blade + JS/Vite). Use ANTES de criar, mover ou renomear arquivo ou pasta (controller, module, service, repository, view, JS/CSS de tela, migration, teste, idioma) e ao criar tela ou endpoint de API novo.
 ---
 
 # Fluxo - Arquitetura e criacao de arquivos
@@ -39,7 +39,7 @@ Tela nova **nao cria rota**. Controller, Module, view, JS e CSS saem dos segment
 | Controller web | `app/Http/Controllers/` | `{Recurso}Controller` (1a maiuscula, resto minuscula: `BankdemonstrationController`); metodos `{acao}Action()` | Sem registro. Retorna `get_object_vars($this)` com `innerTitle` para o layout. Modelo: `BankdemonstrationController.php:188`. |
 | Controller API | `app/Http/Controllers/Api/` (`Integration/` para sessao start/data/finish/cancel) | `{Entidade}Controller` em ingles; `store/update/destroy` ou `startAction/dataAction/finishAction/cancelAction` | Rota em `routes/api.php`. Injeta Service no construtor (`private readonly`). Parametros estendem `ParameterController`. Retorna `JsonResponse` + Resource. Modelo: `Api/Integration/BankStatementController.php`. |
 | Module (AJAX de tela) | `app/Modules/{Recurso}/` (direto em `Modules/` se a URL tem 1 segmento) | `{Acao}Module.php`; metodos `{acao}Action(array $params): array` | Sem registro. Retorna `status`, `msg` e payload. Valida, orquestra e monta a resposta. Modelo: `Modules/Bankdemonstration/ClassificationrulesModule.php`. |
-| Service | `app/Services/` (dominio/integracoes) e `app/Services/Api/` (API publica) | `{Nome}Service` | Na API injeta `RepositoryInterface` e `BatchItemValidator`. Em tela e instanciado com `new`. Regra de negocio sem acoplar ao HTTP. Modelo: `Services/Api/Integration/BankStatementService.php`. |
+| Service | `app/Services/` (dominio/integracoes) e `app/Services/Api/` (API publica) | `{Nome}Service` | Na API injeta `RepositoryInterface` e `BatchItemValidator`. Em tela e instanciado com `new` dentro da Module. Regra de negocio fica no Service, sem acoplar ao HTTP; a Module so valida, orquestra e monta a resposta (modelo: Plaid e Open Finance). Modelo: `Services/Api/Integration/BankStatementService.php`. |
 | Repository | `app/Repositories/Api/` + `Api/Interfaces/` + `Base/` | `{Entidade}Repository` + `{Entidade}RepositoryInterface` | So para a API. Bind em `Providers/ApiServiceProvider.php`. SQL fica aqui. |
 | Model Eloquent | `app/Models/Api/` | Entidade em ingles (`CostCenter`) | `$connection='client'`, `$table`, `$fillable`, `$timestamps=false`. |
 | Helper | `app/Helpers/` | `{Nome}Helper(s)`, classe com metodos `static` | Padrao mais novo para utilitario. Funcao global so via `composer.json` -> `autoload.files`. So crie se nao existir helper equivalente. |
@@ -107,7 +107,3 @@ Tela nova **nao cria rota**. Controller, Module, view, JS e CSS saem dos segment
 - Copiei um irmao do codigo novo, nao do legado?
 - Fiz os registros (permissao, titulo, menu, bind, `mount.js`, `@import`, `lang.php`)?
 - Rodei o build do Vite se criei JS ou CSS?
-
-## Service ou Module em tela nova
-
-Logica de negocio vai no Service; a Module so valida, orquestra e monta a resposta (modelo: Plaid e Open Finance).

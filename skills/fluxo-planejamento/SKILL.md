@@ -1,13 +1,30 @@
 ---
 name: fluxo-planejamento
-description: Roteiro para especificar, planejar e executar qualquer feature, tela, endpoint ou ajuste de regra no repo Fluxo, ancorando a spec na wiki e o plano nas skills fluxo-* (arquitetura, reuso, padroes). Use ao iniciar uma mudanca que exige entender o modulo, desenhar a solucao ou delegar a subagentes. Funciona sozinho (plan mode ou chat) e como complemento de skills de planejamento como o superpowers.
+description: Roteiro de spec, plano e execucao para feature, tela, endpoint ou ajuste de regra no repo Fluxo, ancorado na wiki e nas skills fluxo-*. Use ao iniciar mudanca que exige entender o modulo, desenhar a solucao ou delegar a subagentes. Funciona sozinho ou com superpowers.
 ---
 
 # Fluxo - Planejamento
 
-Roteiro em 3 fases: **spec**, **plano** e **execucao**. Serve com qualquer ferramenta de planejamento (plan mode do Claude Code, conversa direta, superpowers ou outra). Esta skill so diz o que acrescentar para spec, plano e execucao respeitarem as skills `fluxo-*`.
+Para mudanca trivial use o **caminho curto** abaixo. Para o resto, roteiro em 3 fases: **spec**, **plano** e **execucao**. Serve com qualquer ferramenta de planejamento (plan mode do Claude Code, conversa direta, superpowers ou outra). Esta skill so diz o que acrescentar para spec, plano e execucao respeitarem as skills `fluxo-*`.
 
 Se voce usa o superpowers: spec = `brainstorming`, plano = `writing-plans`, execucao = `subagent-driven-development` (ou `executing-plans`). O conteudo abaixo e o mesmo; ele complementa essas skills, nao as substitui.
+
+## Caminho curto (mudanca trivial)
+
+Pule spec e plano formais quando a mudanca for pequena e localizada: ajuste de texto ou traducao, correcao de bug em 1 ou 2 arquivos existentes, ajuste de CSS, renomeacao local. Vale so se **todas** as condicoes forem verdadeiras:
+
+- nao cria arquivo, tela, endpoint, migration nem registro (permissao, menu, bind);
+- nao altera regra de negocio, calculo, permissao nem contrato de API;
+- o efeito e facil de ver e de reverter.
+
+Nesse caso:
+
+1. Leia o arquivo e o irmao mais proximo do codigo novo.
+2. Aplique os temas de `fluxo-padroes-de-codigo` que a mudanca toca (i18n, ifs, CSS etc.) e `fluxo-reuso-e-funcoes` se escrever logica nova.
+3. Rode o que a mudanca exige (build do Vite se mexeu em JS/CSS, teste afetado).
+4. Resuma em 2 ou 3 linhas o que mudou e o que foi reutilizado.
+
+Se surgir qualquer duvida de regra de negocio, ou a mudanca crescer alem das condicoes acima, volte ao roteiro completo (fases 1 a 4). Na duvida, use o roteiro completo.
 
 ## 1. Spec
 
