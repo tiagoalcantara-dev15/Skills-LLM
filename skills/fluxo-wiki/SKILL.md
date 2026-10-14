@@ -15,42 +15,41 @@ Todos os caminhos abaixo sao relativos a raiz da wiki (`WIKI`). Resolva nesta or
 
 1. Variavel de ambiente `FLUXO_WIKI`, se definida.
 2. `~/fluxo.wiki`.
-3. Se nenhuma existir, avise o usuario que a wiki esta indisponivel, diga que a resposta nao se baseia nela e siga so com o codigo e as demais skills `fluxo-*`. Nao invente regra de negocio.
+3. Se nenhuma existir, sugira `./install.sh --wiki` (clona/atualiza a wiki em `~/fluxo.wiki`) e avise o usuario que a wiki esta indisponivel, diga que a resposta nao se baseia nela e siga so com o codigo e as demais skills `fluxo-*`. Nao invente regra de negocio.
 
 ## Passo 1 - escolher o grupo
 
-| Pergunta e sobre... | Grupo | Indice |
+| Pergunta e sobre... | Grupo | Indice (na raiz da wiki) |
 |---|---|---|
-| Como uma tela/modulo funciona para o usuario (regra de negocio, campos, botoes, menus) | Produto | `produto/` |
-| Como consumir/integrar via API (autenticacao, endpoints, HASH, WebService) | APIs | `apis/consumo-api.md` |
-| Como o sistema calcula por dentro (projecao, saldos, documentos, CEPP, snapshots, moeda) | Regras tecnicas | `regras-tecnicas/` |
+| Como uma tela/modulo funciona para o usuario (regra de negocio, campos, botoes, menus) | Produto | `Modulos.md` |
+| Como consumir/integrar via API (autenticacao, endpoints, HASH, WebService) | APIs | `APIs.md` |
+| Como o sistema calcula por dentro (projecao, saldos, documentos, CEPP, snapshots, moeda) | Regras tecnicas | `Regras-Tecnicas.md` |
+| Como desenvolver/operar (ambiente, branch, migrations, i18n, liberacao, smoke, demo) | Guia do desenvolvedor | `Guia-do-Desenvolvedor.md` |
 
 Desempate: "o que o usuario ve/configura" -> Produto. "Como o back calcula/processa" -> Regras tecnicas.
 
-## Passo 2 - indices por grupo
+## Passo 2 - achar a pagina
 
-**produto/**
-- `visao-geral-acessos.md` - mapa de modulos, perfis/acessos, glossario (comece aqui se nao souber o modulo)
-- `fluxo-de-caixa.md` - todas as telas do Fluxo de Caixa + Dashboards
-- `contratos-planejamento.md` - Contratos, Planejamento Financeiro (orcamento/cenarios/forecast)
-- `bancario.md` - Demonstracao Bancaria, Conciliacao Bancaria
-- `integracao.md` - Integracao (saldos, documentos, arquivo, agente, Open Finance)
-- `parametros.md` - todos os cadastros de Parametros
-- `rotinas-preferencias-avancadas.md` - Gerenciamento de Rotinas, Minhas Preferencias, Opcoes Avancadas
+A wiki e plana: o prefixo do nome do arquivo e o modulo. Abra o indice do grupo (tabela acima), pegue a pagina e leia so ela.
 
-**apis/**
-- `consumo-api.md` - modulo APIs (uso/integracao externa)
-
-**regras-tecnicas/**
-- `calculo-do-fluxo.md` - projecao, montagem da tabela, saldos, documentos, conversao de moeda, fotografia
-- `projecoes-por-origem.md` - contratos, conciliacao, calendario, lancamento manual
-- `processos-e-integracoes.md` - CEPP, Open Finance, integracao de pessoas, scripts uteis
+| Prefixo | Conteudo |
+|---|---|
+| `Visao-Geral-e-Acessos*` | mapa de modulos, perfis/acessos, glossario (comece aqui se nao souber o modulo) |
+| `Fluxo-de-Caixa*`, `Dashboards*` | telas do Fluxo de Caixa e dashboards |
+| `Contratos*`, `Planejamento-Financeiro*` | contratos, orcamento, cenarios, forecast |
+| `Demonstracao-Bancaria*`, `Conciliacao-Bancaria*` | extrato, Open Finance, conciliacao |
+| `Integracao*` | saldos, documentos, arquivo, agente, Open Finance |
+| `Parametros*` | cadastros de parametros |
+| `Gerenciamento-de-Rotinas*`, `Minhas-Preferencias*`, `Opcoes-Avancadas*` | rotinas, preferencias, opcoes avancadas |
+| `APIs*` | autenticacao, endpoints, HASH, WebService |
+| `Regra-Tecnica-*` | projecao, saldos, documentos, CEPP, Open Finance, scripts uteis |
+| `Dev-*` | guias de desenvolvimento e liberacao |
 
 ## Regras de uso
 
 1. Leia primeiro o arquivo "Regra geral" do modulo (ex.: `Fluxo-de-Caixa.md`); ele indexa as telas e relacoes com outros modulos.
 2. Para termo ou modulo desconhecido, busque na wiki ignorando `bkp-wiki/`: `grep -ril "<termo>" "$WIKI" --include=*.md`.
-3. Navegacao oficial da wiki: `_Sidebar.md`; entrada: `Home.md`; indices nativos: `Modulos.md`, `Regras-Tecnicas.md`.
+3. Navegacao oficial da wiki: `_Sidebar.md`; entrada: `Home.md`.
 4. `bkp-wiki/` e legado (versoes antigas, `BKP-*`). So consulte se a pagina atual nao cobrir o assunto, e trate como possivelmente desatualizado.
 5. Duvida cruzando grupos (ex.: "como o Calendario de Previsoes funciona e como e projetado"): leia produto + regra tecnica correspondente.
 6. Se a wiki e o codigo divergirem, o codigo vale; sinalize a divergencia ao usuario. Se a wiki nao cobrir o caso, diga isso em vez de supor a regra.

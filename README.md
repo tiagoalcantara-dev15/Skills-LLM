@@ -35,6 +35,7 @@ cd Skills-LLM
 ./install.sh fluxo-arquitetura        # apenas uma
 ./install.sh --project                # em ./.claude/skills (so no projeto atual)
 ./install.sh --dest ~/.codex/skills   # outro agente
+./install.sh --wiki                   # clona/atualiza a wiki usada por fluxo-wiki (~/fluxo.wiki)
 ```
 
 Sem clonar:
