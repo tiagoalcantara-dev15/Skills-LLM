@@ -15,7 +15,7 @@ Todos os caminhos abaixo sao relativos a raiz da wiki (`WIKI`). Resolva nesta or
 
 1. Variavel de ambiente `FLUXO_WIKI`, se definida.
 2. `~/fluxo.wiki`.
-3. Se nenhuma existir, sugira `./install.sh --wiki` (clona/atualiza a wiki em `~/fluxo.wiki`) e avise o usuario que a wiki esta indisponivel, diga que a resposta nao se baseia nela e siga so com o codigo e as demais skills `fluxo-*`. Nao invente regra de negocio.
+3. Se nenhuma existir, pergunte ao usuario o caminho da wiki e use a resposta como `WIKI` na conversa. Se ele nao tiver a wiki, sugira `./install.sh --wiki` (clona/atualiza em `~/fluxo.wiki`). Se continuar indisponivel, avise que a resposta nao se baseia nela e siga so com o codigo e as demais skills `fluxo-*`. Nao invente regra de negocio.
 
 ## Passo 1 - escolher o grupo
 
