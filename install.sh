@@ -2,8 +2,8 @@
 # Instala as skills deste repositorio no diretorio de skills de um agente.
 #
 # Uso:
-#   ./install.sh                         # todas as skills em ~/.claude/skills
-#   ./install.sh --project               # todas as skills em ./.claude/skills
+#   ./install.sh                         # todas as skills em ./.claude/skills
+#   ./install.sh --project               # igual ao padrao (./.claude/skills)
 #   ./install.sh --dest <dir>            # destino customizado (ex: ~/.codex/skills)
 #   ./install.sh <skill> [<skill> ...]   # apenas as skills indicadas
 #   ./install.sh --wiki                  # clona/atualiza a wiki do Fluxo (~/fluxo.wiki ou $FLUXO_WIKI)
@@ -14,7 +14,7 @@
 set -euo pipefail
 
 REPO_URL="https://github.com/tiagoalcantara-dev15/Skills-LLM.git"
-DEST="${HOME}/.claude/skills"
+DEST="$(pwd)/.claude/skills"
 WIKI_URL="https://github.com/allstrategy-git/fluxo.wiki.git"
 WIKI_DIR="${FLUXO_WIKI:-${HOME}/fluxo.wiki}"
 WIKI_ONLY=0

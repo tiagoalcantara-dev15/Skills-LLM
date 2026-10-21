@@ -9,10 +9,10 @@ Prefira o script, que copia as pastas para o diretorio de skills do agente:
 ```bash
 git clone https://github.com/tiagoalcantara-dev15/Skills-LLM.git
 cd Skills-LLM
-./install.sh                       # todas, em ~/.claude/skills
+./install.sh                       # todas, em ./.claude/skills (escopo do projeto)
 ./install.sh <nome-da-skill>       # apenas uma
-./install.sh --project             # em ./.claude/skills (escopo do projeto)
-./install.sh --dest <diretorio>    # outro agente (ex: ~/.codex/skills)
+./install.sh --project             # igual ao padrao (./.claude/skills)
+./install.sh --dest <diretorio>    # outro destino (ex: ~/.claude/skills global, ~/.codex/skills)
 ```
 
 Sem o script: copie `skills/<nome>/` inteira (nao so o `SKILL.md`) para o diretorio de skills do seu agente.
